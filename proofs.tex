@@ -9,31 +9,6 @@
 \usepackage{enumitem}
 \usepackage{hyperref}
 
-%% \newcounter{axmn}
-%% \newcounter{prmn}
-%% \newcounter{dfnn}
-%% \newcounter{thmn}
-%% \newcounter{exn}
-
-%% \newcounter{axmv}[axmn]
-%% \newcounter{prmv}[prmn]
-%% \newcounter{dfnv}[dfnn]
-%% \newcounter{thmv}[thmn]
-%% \newcounter{exv}[exn]
-
-%% \newcounter{tmpcnt}
-
-%% \renewcommand{\theaxmv}{
-%%   \setcounter{tmpcnt}{\value{axmv}}\addtocounter{tmpcnt}{-1}\theaxmn.\thetmpcnt}
-%% \renewcommand{\theprmv}{
-%%   \setcounter{tmpcnt}{\value{prmv}}\addtocounter{tmpcnt}{-1}\theprmn.\thetmpcnt}
-%% \renewcommand{\thedfnv}{
-%%   \setcounter{tmpcnt}{\value{dfnv}}\addtocounter{tmpcnt}{-1}\thedfnn.\thetmpcnt}
-%% \renewcommand{\thethmv}{
-%%   \setcounter{tmpcnt}{\value{thmv}}\addtocounter{tmpcnt}{-1}\thethmn.\thetmpcnt}
-%% \renewcommand{\theexv}{
-%%   \setcounter{tmpcnt}{\value{exv}}\addtocounter{tmpcnt}{-1}\theexn.\thetmpcnt}
-
 \newcounter{axmmain}
 \newtheorem{axminner}{Axiom}[axmmain]
 \makeatletter
@@ -48,18 +23,7 @@
  {\axminner}
  {\endaxminner}
 
-%% \makeatletter
-%% \let\@theaxmv\theaxmv
-%% \def\theaxmv{\theaxmn.\@theaxmv}
-%% \@namedef{theprmv}{\@nameuse{theprmn}.\arabic{prmv}}
-%% \@namedef{thedfnv}{\@nameuse{thedfnn}.\arabic{dfnv}}
-%% \@namedef{thethmv}{\@nameuse{thethmn}.\arabic{thmv}}
-%% \@namedef{theexv}{\@nameuse{theexn}.\arabic{exv}}
-%% \makeatother
-
 \newcommand*{\oldneg}{\mathord{\sim}}
-
-%% \newtheorem{axm}[axmv]{Axiom}
 
 \newcounter{prmc}
 \newcounter{dfnc}
@@ -77,15 +41,6 @@
 \author{Joshua Meyers}
 
 \begin{document}
-
-%\show\newcounter
-%\makeatletter\show\@arabic\makeatother
-%% \counterwithin{axmv}{axm}
-%% \counterwithin{prmv}{prm}
-%% \counterwithin{dfnv}{dfn}
-%% \counterwithin{thmv}{thm}
-%% \counterwithin{exv}{ex}
-
 
 \date{\today}
 \maketitle
@@ -130,17 +85,6 @@ concept of universal that is purely extensional.  Version
 \begin{axm*}[Axiom of extension]\label{axm:ext}
   For sets $S$ and $T$, $S=T$ iff $S$ and $T$ have the same extension.
 \end{axm*}
-
-%% Here are three consequences of the axiom of extension:
-
-%% \begin{enumerate}
-%% \item Order doesn't matter.  For example, ${a,b,c}={b,c,a}$ because
-%%   the two sets have all the same elements.
-%% \item Duplicates don't matter.  For example, ${a,a,b}={a,b}$ because
-%%   the two sets have all the same elements.
-%% \item If $A$ and $B$ are sets that both have no elements, then they
-%%   have all the same elements, so $A=B$.
-%% \end{enumerate}
 
 We can also rephrase the axiom of extension in terms of the $\in$
 relation.  This makes precise what we mean by ``having all the same
@@ -499,33 +443,4 @@ distributive over intersection (as proved above), but not \textit{vice
   corresponding logical law $\oldneg\oldneg P \Leftrightarrow P$.
 \end{proof}
 
-
 \end{document}
-
-%% \begin{dfn}
-%%   $\emptyset = {x|x\neq x}$
-%% \end{dfn}
-%% \stepcounter{dfnn}
-
-%% We can talk about \textit{the} null set because we have proved it
-%% unique.  In general, once we have proved that any two things
-%% satisfying a property are equal, we can talk about \textit{the} thing
-%% satisfying that property.
-
-%% The uniqueness of the null set is also a great example of the
-%% extensionality of set theory.  Noah Schweber writes in a comment(%https://math.stackexchange.com/questions/2296639/is-the-empty-set-or-any-analogy-ever-non-unique#comment4724973_2296639) on
-%% StackExchange:
-
-%% \begin{quote}
-
-%%   I think proving that the emptyset is unique is a good piece towards
-%%   demonstrating the extensionality, rather than intensionality, of set
-%%   theory. The emptyset is possibly the most natural set given to lots
-%%   of different intensional definitions: the set of counterexamples to
-%%   Fermat and the set of primes with rational square roots are each the
-%%   empty set, but clearly are different definitions. And for whatever
-%%   reason, it's the set which seems to cause the most trouble in this
-%%   regard. As trivial as it is, using the axiom of extensionality here
-%%   plants the seed of extensional thinking.
-
-%% \end{quote}
