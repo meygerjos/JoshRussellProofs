@@ -24,6 +24,9 @@
  {\endaxminner}
 
 \newcommand*{\oldneg}{\mathord{\sim}}
+\DeclareMathOperator{\Dom}{Dom}
+\DeclareMathOperator{\Cod}{Cod}
+\DeclareMathOperator{\Ime}{Ime}
 
 \newcounter{prmc}
 \newcounter{dfnc}
@@ -311,6 +314,51 @@ and $\cap$ with $\wedge$.
   \end{align*}
 \end{proof}
 
+Here is another proof of the first part of item d), which proves the
+sets equal by showing that they are subsets of each other.  I use a
+different style of proof writing which has more words.
+
+I also will hide some of the logic.  Here is exactly how.
+
+\begin{enumerate}
+  \item Let $A$ and $B$ be sets.  Previously I have made the inference
+    $x\in A\Rightarrow x\in A \vee x\in B \Rightarrow x\in A\cup B$.
+    Now I will omit the middle step, and make this inference just as
+    $x\in A \Rightarrow x\in A\cup B$.
+  \item Let $A$ and $B$ be sets.  Previously I have made the inference
+    $x\in A\cap B\Rightarrow x\in A \wedge x\in B \Rightarrow x\in A$.
+    Now I will omit the middle step, and make this inference just as
+    $x\in A\cap B \Rightarrow x\in A$.
+\end{enumerate}
+
+So here's the proof:
+
+\begin{proof}
+  \begin{description}
+    \item[$\subseteq$:] Suppose that $x\in A\cup(B\cap C)$.  Then
+      either $x\in A$ or $x\in B\cap C$.  Let's look at each of these
+      disjuncts separately.  First, if $x\in A$, then $x\in A\cup B$
+      and $x\in A\cup C$, so $x\in (A\cup B)\cap(A\cup C)$.  Second,
+      if $x\in B\cap C$, then $x\in B$ and $x\in C$.  By the former
+      conjunct, $x\in A\cup B$ and by the latter, $x\in A\cup C$.
+      Thus $x\in (A\cup B)\cap(A\cup C)$.  So by disjunction
+      elimination, $x\in (A\cup B)\cap(A\cup C)$.  Thus $A\cup(B\cap
+      C)\subseteq (A\cup B)\cap(A\cup C)$.
+    \item[$\supseteq$:] Suppose that $x\in (A\cup B)\cap(A\cup C)$.
+      We take two cases: the case where $x\in A$ and the case where
+      $x\not\in A$.  If $x\in A$, then $x\in A\cup(B\cap C)$.  Now
+      consider the case where $x\not\in A$.  From our supposition,
+      both $x\in A\cup B$ and $x\in A\cup C$.  Thus $x\in A$ or $x\in
+      B$.  But since $x\not\in A$, we must have $x\in B$.  Similarly,
+      $x\in A$ or $x\in C$, but since $x\not\in A$, we must have $x\in
+      C$.  So $x\in B$ and $x\in C$, which implies that $x\in B\cap
+      C$.  Thus $x\in A\cup (B\cap C)$.  In both cases, we found that
+      $x\in A\cup (B\cap C)$.  Thus $x\in A\cup (B\cap C)$, and hence
+      $(A\cup B)\cap(A\cup C)\subseteq A\cup (B\cap C)$.
+  \end{description}
+  By Thm \ref{thm:eq}, $(A\cup B)\cap(A\cup C) = A\cup (B\cap C)$.
+\end{proof}
+
 So far we have a set-theoretic relation $\subseteq$, which makes sets
 into a poset (cf. Thm. \ref{thm:poset}, and two set-theoretic
 operators, $\cup$ and $\cap$.  It turns out that these operators have
@@ -442,5 +490,187 @@ distributive over intersection (as proved above), but not \textit{vice
   $\overline{\overline{S}}=S$.  This fact can be proved from the
   corresponding logical law $\oldneg\oldneg P \Leftrightarrow P$.
 \end{proof}
+
+\section{Functions}
+
+First we need ordered pairs.  I will define them as a primitive
+notion, even though it is possible to define them with sets.  I will
+also define ordered triples while I'm at it.  This isn't really the
+most parsimonious way to do things, but it doesn't matter that much.
+
+\begin{prm}
+  The ordered pair of $a$ and $b$ is denoted $(a,b)$.  The ordered
+  triple of $a$, $b$, and $c$ is denoted $(a,b,c)$.
+\end{prm}
+
+Ordered pairs and triples satisfy the following axiom:
+
+\begin{axm}\label{axm:ord}
+  \begin{enumerate}[label=\alph*)]
+  \item  For any $a$, $b$, $a'$, and $b'$, $(a,b)=(a',b')$ iff $a=a'$ and $b=b'$.
+  \item  For any $a$, $b$, $c$, $a'$, $b'$, and $c'$, $(a,b,c)=(a',b',c')$ iff $a=a'$, $b=b'$, and $c=c'$.
+  \end{enumerate}
+\end{axm}
+
+Now we can define cartesian product.
+
+\begin{dfn}\label{dfn:cart}
+  For sets $A$ and $B$, we define the cartesian product $A\times
+  B=\{(a,b)|a\in A \wedge b\in B\}$.
+\end{dfn}
+
+Now functions:
+
+\begin{dfn}\label{dfn:fun}
+  For sets $A$ and $B$, a function from $A$ to $B$ is an ordered
+  triple $(A,B,G)$ where
+  \begin{enumerate}[label=\alph*)]
+  \item $G\subseteq A\times B$.
+  \item If $a\in A$, then $(\exists b)((a,b)\in G)$.
+  \item If $(a,b),(a,b')\in G$, then $b=b'$.
+  \end{enumerate}
+  We call $A$ the domain, $B$ the codomain, and $G$ the graph of the
+  function $f=(A,B,G)$.  In symbols, $A=\Dom f$, $B=\Cod f$, and
+  $G=G_f$.
+\end{dfn}
+
+Always considering functions as ordered triples is unwieldy.  Thus we
+introduce some other notations.
+
+\begin{dfn}
+  We use the notation $f:A\rightarrow B$ to mean that $f$ is a
+  function with $\Dom f=A$ and $\Cod f=B$.  We also say ``$f$ is a
+  function from $A$ to $B$'' with the same meaning.
+\end{dfn}
+
+\begin{thm}\label{thm:eval}
+  Given a function $f:A\rightarrow$ and an $a\in A$, there exists a
+  unique $b$ such that $(a,b)\in G_f$.  This $b$ is an element of $B$.
+\end{thm}
+
+\begin{proof}
+  By part b) of Def. \ref{dfn:fun}, $\exists b$ such that $(a,b)\in
+  G_f$.  Now suppose that there was a $b'\in B$ such that $(a,b')\in
+  G_f$.  By part c) of Def. \ref{dfn:fun}, $b=b'$.  So $b$ uniquely
+  has the property that $(a,b)\in G_f$.  To prove the second sentence
+  of the theorem, we see by part a) of Def. \ref{dfn:fun} that
+  $G\subseteq A\times B$.  Since $(a,b)\in G_f$, $(a,b)\in A\times B$.
+  By Def. \ref{dfn:cart}, $b\in B$.
+\end{proof}
+
+This theorem gives us grounds to make the following definition:
+
+\begin{dfn}
+  For a function $f$, we denote the unique $b$ such that $(a,b)\in
+  G_f$ as $f(a)$.
+\end{dfn}
+
+We can express the second sentence of Thm. \ref{thm:eval} with the new
+notation.  I will call this restatement a corollary (immediate
+consequence) of the theorem.
+
+\begin{cor}
+  For a function $f:A\rightarrow B$ and an $a\in A$, $f(a)\in B$.
+\end{cor}
+
+We now define notation for a primitive notion from logic.
+
+\begin{prm}
+  We denote an expression in $x$ with the symbols $\mathcal{E}[x]$.
+  We use a script ``E'' because it is a metavariable, not a variable.
+  The expression resulting from substituting $a$ for $x$ in
+  $\mathcal{E}[x]$ is denoted $\mathcal{E}[a]$.
+\end{prm}
+
+A function $f$ from $A$ to $B$ is often defined by a statement
+$f(a)=\mathcal{E}[a]$, where $\mathcal{E}[x]$ is an expression in $x$
+such that $\mathcal{E}[a]\in B$ whenever $a\in A$.  We now justify
+this way of defining a function.
+
+\begin{thm}\label{thm:fundef}
+  Suppose $A$ and $B$ are sets, and $\mathcal{E}[x]$ is an expression
+  in $x$ such that $\mathcal{E}[a]\in B$ whenever $a\in A$.  Then
+  there exists a unique function $f:A\rightarrow B$ such that for all
+  $a\in A$, $f(a)=\mathcal{E}[a]$.
+\end{thm}
+
+\begin{proof} We will prove the existence and uniqueness of the required function in separate steps.
+  \begin{description}
+    \item[Existence] Let $G=\{(a,\mathcal{E}[a])|a\in A\}$.  I claim
+      that $f=(A,B,G)$ is a function.  We prove that the three parts
+      of \ref{dfn:fun} hold for $f$:
+      \begin{enumerate}[label=\alph*)]
+        \item If $x\in G$, then $x=(a_0,\mathcal{E}[a_0])$ for some
+          $a_0\in A$.  By the premise that $\mathcal{E}[a]\in B$
+          whenever $a\in A$, $\mathcal{E}[a_0]\in B$.  Thus
+          $x=(a_0,\mathcal{E}[a_o])\in A\times B$.  So $G\subseteq A\times B$.
+        \item Suppose $a\in A$.  Then $(a,\mathcal{E}[a])\in G$,
+          so by existential generalization $\exists b$ such that
+          $(a,b)\in G$.
+        \item Suppose $(a,b),(a,b')\in G$.  Then, by the definition of
+          $G$, there exist $a_1, a_2\in A$ such that
+          $(a,b)=(a_1,\mathcal{E}[a_1])$ and
+          $(a,b')=(a_2,\mathcal{E}[a_2])$.  By Axiom \ref{axm:ord},
+          $a=a_1$, $b=\mathcal{E}[a_1]$, $a=a_2$, and
+          $b'=\mathcal{E}[a_2]$.  Thus
+          $b=\mathcal{E}[a_1]=\mathcal{E}[a]=\mathcal{E}[a_2]=b'$.
+      \end{enumerate}
+      So $f$ is a function.
+    \item[Uniqueness] Suppose $f'=(A,B,G')$ satisfies
+      $f'(a)=\mathcal{E}[a]$ for all $a\in A$.  To show that $f'=f$,
+      we use Axiom \ref{axm:ord}.  We know already that $A=A$ and
+      $B=B$, so it suffices to show that $G'=G$.  We do this with
+      Theorem \ref{thm:eq}.  First suppose that $(a_0,b_0)\in G'$.  We
+      know from Def. \ref{dfn:fun} part a) that $(a_0,b_0)\in A\times
+      B$, which implies that $a_0\in A$.  By our supposition,
+      $\mathcal{E}[a_0]$ is the unique $b$ such that $(a_0,b)\in G'$,
+      so we must have $b_0=\mathcal{E}[a_0]$.  Thus
+      $(a_0,b_0)=(a_0,\mathcal{E}[a_0])\in G$, so we conclude
+      $G'\subseteq G$.  Conversely, suppose $x\in G$.  Then $\exists
+      a_0\in A$ such that $x=(a_0,\mathcal{E}[a_0])$.  But since $a_0
+      \in A$, our supposition tells us that $\mathcal{E}[a_0]$ is the
+      unique $b$ such that $(a_0,b)\in G'$.  Thus
+      $x=(a_0,\mathcal{E}[a_0]\in G'$, so we conclude $G\subseteq G'$.
+  \end{description}
+\end{proof}
+
+Now, with Thm. \ref{thm:fundef}, we can talk about \textit{the}
+function $f:A\rightarrow B$ defined by $f(a)=\mathcal{E}[a]$, given
+that $\mathcal{E}[x]$ is an expression in $x$ such that whenever $a\in
+A$, $\mathcal{E}[a]\in B$.
+
+There is also another common notation for defining a function.
+
+\begin{dfn}
+  Suppose that $\mathcal{E}[x]$ is an expression in $x$ such that
+  whenever $a\in A$, $\mathcal{E}[a]\in B$.  We use the notation
+  $f:A\rightarrow B, a\mapsto \mathcal{E}[a]$ to indicate that $f$ the
+  function from $A$ to $B$ defined by $f(a)=\mathcal{E}[a]$.
+\end{dfn}
+
+Note the difference between the arrows $\rightarrow$ and $\mapsto$.
+The former is an ``external'' arrow, and it is used between the domain
+and codomain of a function.  The latter is an ``internal'' arrow, and
+it is used between an input to the function and the output that the
+function sends it to.
+
+\section{Properties of Functions}
+
+\begin{dfn}
+  A function $f:A\rightarrow B$ is injective iff $(\forall a\in
+  A)(a\neq a' \Rightarrow f(a)=f(a'))$.
+\end{dfn}
+
+\begin{dfn}
+  A function $f:A\rightarrow B$ is surjective iff $(\forall b\in
+  B)(\exists a\in A)(f(a)=b)$.
+\end{dfn}
+
+\begin{dfn}
+  A function $f:A\rightarrow B$ is bijective iff it is both injective
+  and surjective.
+\end{dfn}
+
+
 
 \end{document}
